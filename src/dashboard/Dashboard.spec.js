@@ -11,3 +11,7 @@ test("it should render dashboard", () => {
           <Dashboard />
     )
 });
+
+test("should match dashboard snapshot", () => {
+    expect(render(<Dashboard />)).toMatchSnapshot()
+});

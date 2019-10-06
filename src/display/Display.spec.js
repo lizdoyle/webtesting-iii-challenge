@@ -11,3 +11,29 @@ test("it should render display", () => {
           <Display />
     )
 });
+
+test("should match display snapshot", () => {
+    expect(render(<Display />)).toMatchSnapshot()
+});
+
+// test("mock display test", () => {
+//     const mock = jest.fn();
+    
+//     mock("");
+//     mock("");
+//     expect(mock).toHaveBeenCalled();
+//     expect(mock).toHaveBeenCalledTimes();
+//     expect(mock).toHaveBeenCalledWith();
+
+
+// })
+
+
+
+
+test("closed", () => {
+    console.log("It is closed")
+    render(
+        <div></div>
+    )
+})

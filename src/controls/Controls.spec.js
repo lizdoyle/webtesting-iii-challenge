@@ -11,3 +11,7 @@ test("it should render controls", () => {
           <Controls />
     )
 });
+
+test("should match controls snapshot", () => {
+    expect(render(<Controls />)).toMatchSnapshot()
+});
