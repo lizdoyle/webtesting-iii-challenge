@@ -2,7 +2,7 @@
 
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import {toBeInTheDocument, toHaveClass } from "@testing-library/jest-dom";
+import "@testing-library/jest-dom/extend-expect";
  
 
 import Display from "./Display";
@@ -29,15 +29,33 @@ test("mock display test", () => {
 })
 
 
-test("It should default to unlocked and open", () => {
-    const {getByText} = render(<Display locked={false} closed={false} />);
+test("Display Gate Closed/Locked ", () => {
+    const { getByText } = render(<Display closed={true} locked={true} />);
+    getByText(/closed/i);
+    getByText(/locked/i);
+  });
+  
+  test("Display Gate Closed/Unlocked ", () => {
+    const { getByText } = render(<Display closed={true} locked={false} />);
+    getByText(/closed/i);
+    getByText(/Unlock/i);
+  }); 
 
-    const unlocked = getByText(/unlocked/i);
-    const open = getByText(/open/i);
-
-    fireEvent.click(getByText("Unlocked"));
-    fireEvent.click(getByText("Open"));
-
-    expect(unlocked).toHaveClass('green-led');
-    expect(open).toHaveClass('green-led');
-});
+  test("Display Gate Open/Unlocked", () => {
+    const { getByText } = render(<Display closed={false} locked={false} />);
+    getByText(/open/i);
+    getByText(/Unlock/);
+  });
+  
+  test("Use red-led for locked or closed", () => {
+    const { getByText } = render(<Display closed={true} locked={true} />);
+    expect(getByText(/locked/i)).toHaveClass("red-led");
+    expect(getByText(/closed/i)).toHaveClass("red-led");
+  });
+  
+  test("Use green-led for unlocked or open", () => {
+    const { getByText } = render(<Display closed={false} locked={false} />);
+  
+    expect(getByText(/unlocked/i)).toHaveClass("green-led");
+    expect(getByText(/open/i)).toHaveClass("green-led");
+  });
